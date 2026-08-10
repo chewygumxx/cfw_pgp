@@ -3,7 +3,8 @@
 
 # 
 # 
-# ~/ref/openpgpkey/justfile
+# ~chewygumxx/pgp.git
+# ::: :/justfile
 # 
 # 
 

@@ -3,7 +3,7 @@
 
 <!--  
    - 
-   - ~chewygumxx/openpgpkey.git
+   - ~chewygumxx/pgp.git
    - ::: :/notes/2026-08-10_llmchat_cloudflare-worker-serve-openpgp.md
    -
    -->

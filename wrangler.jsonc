@@ -2,7 +2,7 @@
 
 // 
 // 
-// ~chewygumxx/openpgpkey.git
+// ~chewygumxx/pgp.git
 // ::: :/wrangler.jsonc
 // 
 // 
@@ -13,7 +13,7 @@
 
 {
 	"$schema": "./node_modules/wrangler/config-schema.json",
-	"name": "openpgpkey",
+	"name": "pgp",
 	"compatibility_date": "2026-08-09", // Set this to today's date
     "workers_dev": false,
     "routes": [

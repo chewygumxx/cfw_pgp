@@ -2,7 +2,7 @@
 
 #
 #
-# ~chewygumxx/openpgpkey.git
+# ~chewygumxx/pgp.git
 # ::: :/.assetsignore
 #
 #
@@ -13,15 +13,14 @@
 
 # Directories
 /.git/
-!/.well-known/
-!/asc/
-/scripts/
+#/.well-known/
+#/asc/
 /notes/
 
 
 # Files
 /.assetsignore
-/_headers
+#/_headers
 /justfile
 /LICENSE
 /README.md
