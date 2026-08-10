@@ -13,10 +13,16 @@
 
 # Directories
 /.git/
+!/.well-known/
+!/asc/
+/scripts/
+/notes/
+
 
 # Files
+/.assetsignore
+/_headers
+/justfile
 /LICENSE
 /README.md
 /wrangler.jsonc
-/.assetsignore
-/_headers
