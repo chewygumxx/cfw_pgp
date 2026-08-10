@@ -1,0 +1,2 @@
+/.well-known/openpgpkey/*
+  Access-Control-Allow-Origin: *

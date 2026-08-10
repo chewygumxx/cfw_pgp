@@ -1,0 +1,22 @@
+# vim: expandtab:shiftwidth=4:ft=gitignore
+
+#
+#
+# ~chewygumxx/openpgpkey.git
+# ::: :/.assetsignore
+#
+#
+
+#
+# https://developers.cloudflare.com/workers/static-assets/binding/#ignoring-assets
+#
+
+# Directories
+/.git/
+
+# Files
+/LICENSE
+/README.md
+/wrangler.jsonc
+/.assetsignore
+/_headers

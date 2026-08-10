@@ -1,0 +1,32 @@
+// vim: expandtab:shiftwidth=4
+
+// 
+// 
+// ~chewygumxx/openpgpkey.git
+// ::: :/wrangler.jsonc
+// 
+// 
+
+//
+// https://developers.cloudflare.com/workers/wrangler/configuration
+//
+
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "openpgpkey",
+	"compatibility_date": "2026-08-09", // Set this to today's date
+    "workers_dev": false,
+    "routes": [
+            {
+                "pattern": "openpgpkey.cgxx.dev",
+                "custom_domain": true
+            },
+            {
+                "pattern": "pgp.cgxx.dev",
+                "custom_domain": true
+            }
+        ],
+    "assets": {
+        "directory": "./",
+    }
+}
