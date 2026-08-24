@@ -142,7 +142,7 @@ _gen-index:
         </style>
     </head>
     <body>
-        <h1>PGP keys</h1>
+        <h1>PGP Keys</h1>
         <ul>
     HTML
     
