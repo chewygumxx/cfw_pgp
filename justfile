@@ -22,6 +22,12 @@ wkd-hash +emails:
 
 [doc('Export email PGP key')]
 export email: (_export-wkd email) (_export-asc email)
+    git -C "{{justfile_directory()}}" commit --all --message "Added {{email}}"
+
+
+# ----------------
+# Helpers: Export
+# ----------------
 
 [doc('Export binary to WKD')]
 _export-wkd email:
@@ -42,7 +48,7 @@ _export-asc email:
 _export-key armor="" output email:
     #!/usr/bin/env bash
     set -euo pipefail
-    if ! gpg --list-keys {{email}} >/dev/null 2>&1; then
+    if ! gpg --list-keys "{{email}}" >/dev/null 2>&1; then
         echo "Email does not exist in keyring: {{email}}" >&2
         exit 1
     fi
@@ -50,7 +56,7 @@ _export-key armor="" output email:
     confirm() {
         read -rp "$1 [y/N] " reply
         reply="${reply,,}"
-        [[ "${reply:0:1}" == y ]] || exit 0
+        [[ "${reply:0:1}" == y ]] || exit 1
     }
 
     repo_relative() {
@@ -68,4 +74,4 @@ _export-key armor="" output email:
         rm -f "$output"
     fi
     
-    gpg --export {{armor}} {{email}} > "$output"
+    gpg --export {{armor}} "{{email}}" > "$output"
