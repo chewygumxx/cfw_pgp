@@ -20,6 +20,7 @@
 
 # Files
 /.assetsignore
+/.gitignore
 #/_headers
 /justfile
 /LICENSE
