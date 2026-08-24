@@ -1,5 +1,5 @@
 #!/usr/bin/env -S just --working-directory . --justfile
-# vim: expandtab:shiftwidth=4
+# vim:set expandtab shiftwidth=4 filetype=just:
 
 # 
 # 
@@ -9,7 +9,11 @@
 # 
 
 set positional-arguments
-set default-list := true
+
+
+[private]
+default:
+    @just --list
 
 
 [doc('List exported keys')]
@@ -21,8 +25,12 @@ wkd-hash +emails:
     @gpg-wks-client --print-wkd-hash {{emails}}
 
 [doc('Export email PGP key')]
-export email: (_export-wkd email) (_export-asc email)
+export email: (_export-wkd email) (_export-asc email) index
     git -C "{{justfile_directory()}}" commit --all --message "Added {{email}}"
+
+[doc('Regenerate the asset index page')]
+index:
+    @just _gen-index > "{{justfile_directory()}}/index.html"
 
 
 # ----------------
@@ -75,3 +83,85 @@ _export-key armor="" output email:
     fi
     
     gpg --export {{armor}} "{{email}}" > "$output"
+
+
+# ----------------
+# Helpers: Index
+# ----------------
+
+[doc('Render index.html to stdout')]
+_gen-index:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    
+    fmt_fpr() { printf '%s' "$1" | fold -w4 | paste -sd' '; }
+    
+    cat <<'HTML'
+    <!-- vim:set expandtab shiftwidth=4 filetype=html: -->
+    
+    <!--
+       -
+       - ~chewygumxx/pgp.git
+       - ::: :/index.html
+       -
+       -->
+    
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>chewygumxx — PGP keys</title>
+        <style>
+            :root { color-scheme: light dark; }
+            body {
+                font-family: ui-monospace, "SF Mono", Consolas, monospace;
+                max-width: 40rem;
+                margin: 3rem auto;
+                padding: 0 1rem;
+                line-height: 1.5;
+            }
+            h1 { font-size: 1.25rem; }
+            ul { list-style: none; padding: 0; }
+            li {
+                border: 1px solid currentColor;
+                border-radius: 4px;
+                padding: 0.75rem 1rem;
+                margin-bottom: 0.75rem;
+            }
+            li a { font-weight: bold; text-decoration: none; }
+            li a:hover { text-decoration: underline; }
+            code {
+                display: block;
+                margin-top: 0.35rem;
+                font-size: 0.85em;
+                opacity: 0.8;
+                word-break: break-all;
+            }
+            footer { font-size: 0.85em; opacity: 0.7; margin-top: 2rem; }
+        </style>
+    </head>
+    <body>
+        <h1>PGP keys</h1>
+        <ul>
+    HTML
+    
+    for f in "{{justfile_directory()}}"/asc/*.pgp.asc; do
+        [ -e "$f" ] || continue
+        email="$(basename "$f" .pgp.asc)"
+        fpr="$(gpg --show-keys --with-colons --with-fingerprint "$f" \
+            | awk -F: '/^fpr:/ {print $10; exit}')"
+        printf '        <li>\n'
+        printf '            <a href="/asc/%s">%s</a>\n' "$(basename "$f")" "$email"
+        printf '            <code>%s</code>\n' "$(fmt_fpr "$fpr")"
+        printf '        </li>\n'
+    done
+    
+    cat <<'HTML'
+        </ul>
+        <footer>
+            WKD-aware clients can autodiscover these keys directly
+        </footer>
+    </body>
+    </html>
+    HTML

@@ -1,4 +1,4 @@
-// vim: expandtab:shiftwidth=4
+// vim:set expandtab shiftwidth=4 filetype=jsonc:
 
 // 
 // 
@@ -7,24 +7,15 @@
 // 
 // 
 
-//
-// https://developers.cloudflare.com/workers/wrangler/configuration
-//
 
 {
 	"$schema": "./node_modules/wrangler/config-schema.json",
 	"name": "pgp",
-	"compatibility_date": "2026-08-09", // Set this to today's date
+	"compatibility_date": "2026-08-24",
     "workers_dev": false,
     "routes": [
-            {
-                "pattern": "openpgpkey.cgxx.dev",
-                "custom_domain": true
-            },
-            {
-                "pattern": "pgp.cgxx.dev",
-                "custom_domain": true
-            }
+            { "custom_domain": true, "pattern": "openpgpkey.cgxx.dev" },
+            { "custom_domain": true, "pattern": "pgp.cgxx.dev" }
         ],
     "assets": {
         "directory": "./",
